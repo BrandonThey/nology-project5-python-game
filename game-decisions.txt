@@ -1,0 +1,15 @@
+Game Action, Decision/Result, Marine Count
+New Game Started, none, 20 
+Difficulty Chosen, Astartes, 20 
+Decision Made, Lob Grenades, 20 
+Decision Made, Defend Base, 10 
+Game Event, Counter Attack, 3 
+Decision Made, Eliminate Carnifex, 3 
+Ending Achieved, Bad Ending, 0 
+New Game Started, none, 15 
+Difficulty Chosen, Custodes, 15 
+Decision Made, Call Airstrike, 15 
+Decision Made, Push Forward, 12 
+Game Event, Counter Attack, 9 
+Decision Made, Eliminate Carnifex, 9 
+Ending Achieved, Good Ending, 6 
