@@ -1,4 +1,7 @@
 from csv import writer
+
+# Class for a game instance that containes the marine_count variable and setters and getters.
+    #the marine_count serves as lives for the game
 class Game:
     def __init__(self, marine_count):
         self._marine_count = marine_count
@@ -11,35 +14,40 @@ class Game:
     def marine_count(self, new_count):
         self._marine_count = new_count
 
-#so far worst path you lose 23 marines
-#best path you lose 9 marines
+#function that prompts the user to select a difficulty setting, which will change the marine_count depending on their choice
 def difficulty_select(log_file_name):
+    #Series of prints that prompt the user to choose a difficulty
     print()
     print("                                                      Welcome to this Warhammer 40k text adventure!"                                                          )
     print("                         Please choose a difficulty to play! Your choice will determine how many marines('lives') you have during the game"                   )
     print("                                             Initiate:25 Marines      Astartes:20 Marines     Custodes: 15 Marines"                                           )
     print()
+
+    #While loop that only breaks when the user enters a valid difficulty choice
+        # Initiate is the easiest difficulty that starts the game with 25 lives
+        # Astartes is the mid grade difficulty that starts the game with 20 lives
+        # Custodes is the hardest difficulty that starts the game with 15 lives
     while(True):
         user_choice = input("Initiate, Astartes, Custodes: ")
         if(user_choice.lower() == "initiate"):
             game_instance = Game(25)
-            log_message(log_file_name, game_instance, "New Game Started, none")
-            log_message(log_file_name,game_instance, "Difficulty Chosen, Initiate")
+            log_message(log_file_name, game_instance, "New Game Started, none") #logs the decision to a txt file
+            log_message(log_file_name,game_instance, "Difficulty Chosen, Initiate") #logs the decision to a txt file
             break
         elif(user_choice.lower() == "astartes"):
             game_instance = Game(20)
-            log_message(log_file_name, game_instance, "New Game Started, none")
-            log_message(log_file_name,game_instance, "Difficulty Chosen, Astartes")
+            log_message(log_file_name, game_instance, "New Game Started, none") #logs the decision to a txt file
+            log_message(log_file_name,game_instance, "Difficulty Chosen, Astartes") #logs the decision to a txt file
             break
         elif(user_choice.lower() == "custodes"):
             game_instance = Game(15)
-            log_message(log_file_name, game_instance, "New Game Started, none")
-            log_message(log_file_name,game_instance, "Difficulty Chosen, Custodes")
+            log_message(log_file_name, game_instance, "New Game Started, none") #logs the decision to a txt file
+            log_message(log_file_name,game_instance, "Difficulty Chosen, Custodes") #logs the decision to a txt file
             break
     
     return game_instance
 
-#each segment of the story should be it's own functions, maybe set up a counter to count the number of squad members are left and if reaches 0 you lose
+#introductory section of the game that will hold the first decision the player can make
 def intro(game_instance,log_file_name):
     print()
     print("                             You play as Gabriel Angelos, captain of an elite group of infantry known as the Space Marines"                                   )
@@ -50,19 +58,23 @@ def intro(game_instance,log_file_name):
     print(" As the captain will you order your men to lob grenades at the aliens in hopes to stem their assault or will you risk a danger close airstrike on the aliens?")
     print()
 
+    #While loop that only breaks when the user enters a valid choice
+        # Grenades is the worse choice that loses 10 marines
+        # Grenades is the best choice that loses 3 marines
     while(True):
         user_choice = input("Grenades or airstrike? ")
         if(user_choice.lower() == "grenades"):
-            log_message(log_file_name,game_instance, "Decision Made, Lob Grenades")
-            lob_grenades(game_instance,log_file_name)
+            log_message(log_file_name,game_instance, "Decision Made, Lob Grenades") #logs the game decision to a txt file
+            lob_grenades(game_instance,log_file_name) #progresses the game by moving to next section
             break
         elif(user_choice.lower() == "airstrike"):
-            log_message(log_file_name,game_instance, "Decision Made, Call Airstrike")
-            call_airstrike(game_instance,log_file_name)
+            log_message(log_file_name,game_instance, "Decision Made, Call Airstrike") #logs the game decision to a txt file
+            call_airstrike(game_instance,log_file_name)  #progresses the game by moving to next section
             break
 
     return
 
+#one of two possible outcomes based on the first decision, will house the player's second decision
 def lob_grenades(game_instance,log_file_name):
     print()
     print("                 Not wanting to risk the chance of friendly fire from a airstrike, you instead order your marines to lob grenades at the Tyranids"            )
@@ -75,18 +87,23 @@ def lob_grenades(game_instance,log_file_name):
     game_instance.marine_count -= 10
     print(f"                                                         You have {game_instance.marine_count} space marines remaining"                                      )
     print()
+
+    #While loop that only breaks when the user enters a valid choice
+        # defend is the worse choice that loses 7 marines
+        # attack is the best choice that loses 3 marines
     while(True):
         user_choice = input("Defend or attack? ")
         if(user_choice.lower() == "defend"):
-            log_message(log_file_name,game_instance, "Decision Made, Defend Base")
-            defend(game_instance,log_file_name)
+            log_message(log_file_name,game_instance, "Decision Made, Defend Base") #logs the game decision to a txt file
+            defend(game_instance,log_file_name) #progresses the game by moving to next section
             break
-        elif(user_choice.lower() == "attack"):
-            log_message(log_file_name,game_instance, "Decision Made, Push Forward")
-            push_forward(game_instance,log_file_name)
+        elif(user_choice.lower() == "attack"): 
+            log_message(log_file_name,game_instance, "Decision Made, Push Forward") #logs the game decision to a txt file
+            push_forward(game_instance,log_file_name) #progresses the game by moving to next section
             break
     return
 
+#one of two possible outcomes based on the first decision, will house the player's second decision
 def call_airstrike(game_instance,log_file_name):
     print()
     print("               Thinking that grenades won't quell the Tyranids' thirst, you decide to call in an airstrike to wipe all the aliens out"                        )
@@ -98,18 +115,23 @@ def call_airstrike(game_instance,log_file_name):
     game_instance.marine_count -= 3
     print(f"                                                         You have {game_instance.marine_count} space marines remaining"                                                    )
     print()
+
+    #While loop that only breaks when the user enters a valid choice
+        # defend is the worse choice that loses 7 marines
+        # attack is the best choice that loses 3 marines
     while(True):
         user_choice = input("Defend or attack? ")
         if(user_choice.lower() == "defend"):
-            log_message(log_file_name,game_instance, "Decision Made, Defend Base")
-            defend(game_instance,log_file_name)
+            log_message(log_file_name,game_instance, "Decision Made, Defend Base") #logs the game decision to a txt file
+            defend(game_instance,log_file_name) #progresses the game by moving to next section
             break
         elif(user_choice.lower() == "attack"):
-            log_message(log_file_name,game_instance, "Decision Made, Push Forward")
-            push_forward(game_instance,log_file_name)
+            log_message(log_file_name,game_instance, "Decision Made, Push Forward") #logs the game decision to a txt file
+            push_forward(game_instance,log_file_name) #progresses the game by moving to next section
             break
     return
 
+#one of two possible outcomes based on the second decision, will lead to the next section without decision
 def defend(game_instance,log_file_name):
     print()
     print("                              You decide that an offensive would be unwise and order your men to set reinforce the defenses around the base"                                )
@@ -120,6 +142,10 @@ def defend(game_instance,log_file_name):
     print(" Your base defensive cuts down the aliens in droves and yet they continue to press onwards, eventually your landmines all but exhuasted and your machine guns overwhelmed"  )
     print("                 By the time the battle finishes your men are exhausted, beaten down, and bloody. The base holds but not without the sacrifice of 7 of your brothers"       )
     game_instance.marine_count -= 7
+
+    # determining if the player has lost all their lives:
+        # if they did then they lost and get sent to the bad ending section
+        # else they continue the game
     if(game_instance.marine_count <= 0):
         log_message(log_file_name,game_instance, "Ending Decided, Bad Ending")
         bad_ending()
@@ -135,6 +161,7 @@ def defend(game_instance,log_file_name):
         counter_attack(game_instance,log_file_name)
     return
 
+#one of two possible outcomes based on the second decision, will lead to the next section without decision
 def push_forward(game_instance,log_file_name):
     print()
     print("                                         You decide that the best defense is a strong offense and order your men to persue the aliens"                                      )
@@ -144,10 +171,11 @@ def push_forward(game_instance,log_file_name):
     print(f"                                                         You have {game_instance.marine_count} space marines remaining"                                                    )
     print()
 
-    log_message(log_file_name,game_instance, "Game Event, Counter Attack")
+    log_message(log_file_name,game_instance, "Game Event, Counter Attack") 
     counter_attack(game_instance,log_file_name)
     return
 
+#Section that links the two previous choices, will house the player's third and final decision
 def counter_attack(game_instance,log_file_name):
     print()
     print("                  Eventually your marines manage to find the Tyranid's hive base. You send your scouts to recon the base and determine the strength of the hive"            )
@@ -160,6 +188,9 @@ def counter_attack(game_instance,log_file_name):
     print("                                                                In the end it all boils down to your decision"                                                              )
     print()
 
+    #While loop that only breaks when the user enters a valid choice
+            # Carnifex is the worse choice that loses 6 marines
+            # Tyrant is the best choice that loses 3 marines
     while(True):
         user_choice = input("Tyrant or Carnifex? ")
         if(user_choice.lower() == "tyrant"):
@@ -172,6 +203,7 @@ def counter_attack(game_instance,log_file_name):
             break
     return
 
+#one of two possible outcomes based on the last decision, will lead to an ending depending on how many lives are left
 def eliminate_tyrant(game_instance,log_file_name):
     print()
     print("      You decide that the Tyrant commander is a much larger priority. Your thinking being that without the commander the Tyrannid hordes will be uncoordinated and weakened")
@@ -186,6 +218,11 @@ def eliminate_tyrant(game_instance,log_file_name):
     print("                          After a few more swings of your chainsword the beast finally falls and the rest of hive has been eliminated"                                      )
     print()
     game_instance.marine_count -=3
+
+    #determining the ending based on marine count
+        # if 0 lives are left the user gets the bad ending
+        # if the user has 1-5 lives left they get the standard ending
+        # otherwise the user gets the best ending
     if(game_instance.marine_count <= 0):
         print("                           You have defeated the hive... but have taken damage yourself and the rest of your squad is in critical condition"                                )
         log_message(log_file_name,game_instance, "Ending Achieved, Bad Ending")
@@ -198,6 +235,7 @@ def eliminate_tyrant(game_instance,log_file_name):
         good_ending()
     return
 
+#one of two possible outcomes based on the last decision, will lead to an ending depending on how many lives are left
 def eliminate_carnifex(game_instance, log_file_name):
     print()
     print("                   You decide that the firepower and strength of the two Carnifex must be eliminated in order to stand a chance against the hive cluster"                   )
@@ -217,6 +255,10 @@ def eliminate_carnifex(game_instance, log_file_name):
     print()
     game_instance.marine_count -=6
 
+    #determining the ending based on marine count
+            # if 0 lives are left the user gets the bad ending
+            # if the user has 1-5 lives left they get the standard ending
+            # otherwise the user gets the best ending
     if(game_instance.marine_count <= 0):
         print("                           You have defeated the hive... but have taken heavy damage yourself and the rest of your squad is in critical condition"                                )
         log_message(log_file_name,game_instance, "Ending Achieved, Bad Ending")
@@ -255,15 +297,17 @@ def good_ending():
     print()
     return
 
+#function that logs the incoming message to the log file's name
 def log_message(log_file_name,game_instance, message):
     with open(log_file_name, "a", newline="") as log_file:
         log_file.writelines(f"{message}, {game_instance.marine_count} \n")
     log_file.close()
 
+# main driver function that instatiates and starts a game.
 def main():
     log_file_name = "game-decisions.txt"
-    game_instance = difficulty_select(log_file_name)
-    intro(game_instance,log_file_name)
+    game_instance = difficulty_select(log_file_name) #calling the function to get the difficulty and make a new game_instance
+    intro(game_instance,log_file_name) #starting the game's introductory section
     return 0
 
 main()
